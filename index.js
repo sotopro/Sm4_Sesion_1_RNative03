@@ -61,27 +61,37 @@ const willGetNewPhone = new Promise((resolve, reject) => {
 
 // askMon();
 
-const showOff = (phone => {
-    // return new Promise((resolve, reject) => {
-    //     let message = `Hey friend, I have a new ${phone.color} ${phone.brand} phone`;
-    //     resolve(message)
-    // })
-    console.log('phone')
-    let message = `Hey friend, I have a new ${phone.color} ${phone.brand} phone`;
-    return Promise.resolve(message);
-});
-const askMon = () => {
-    console.log('before asking Mon');
-    willGetNewPhone
-    .then(showOff)
-    .then(fulfilled => {
-        // yay, you got a new phone'
-        console.log(fulfilled)
+const showOff = async (phone) => {
+    return new Promise((resolve, reject) => {
+        let message = `Hey friend, I have a new ${phone.color} ${phone.brand} phone`;
+        resolve(message)
     })
-    .catch(error => {
-        // ops, mom don't buy it'
-        console.log(error.message);
-    });
+    // console.log('phone')
+    // let message = `Hey friend, I have a new ${phone.color} ${phone.brand} phone`;
+    // return Promise.resolve(message);
+};
+const askMon = async () => {
+    try {
+        let phone = await willGetNewPhone;
+        let message = await showOff(phone);
+        console.log(message);
+        console.log('after asking mom')
+    } catch (error) {
+        console.log(error.message); 
+    }
+    // willGetNewPhone
+    // .then(showOff)
+    // .then(fulfilled => {
+    //     // yay, you got a new phone'
+    //     console.log(fulfilled)
+    // })
+    // .catch(error => {
+    //     // ops, mom don't buy it'
+    //     console.log(error.message);
+    // });
 }
 
-askMon();
+// askMon();
+(async () => {
+    await askMon();
+})();
