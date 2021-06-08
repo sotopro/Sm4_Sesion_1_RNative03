@@ -95,3 +95,81 @@ const askMon = async () => {
 (async () => {
     await askMon();
 })();
+
+
+// const add = (num1, num2) => {
+//     return num1 + num2
+// }
+
+// const result = add(1,2);
+
+// const addAsync = async (num1, num2, callback) => {
+//     fetch('http://www.example.com', {
+//         method: 'POST',
+//         // GET POST PUT DELETE, etc
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: {
+//             num1: num1,
+//             num2: num2
+//         }
+//     });
+//     return callback;
+// }
+
+// addAsync(1,2, success => {
+//     const result = success; // you get result = 3 here
+// })
+
+
+let resultA, resultB, resultC;
+
+// const add = (num1, num2) => {
+//     return num1 + num2
+// }
+// const numbers = {
+//     num1: 1,
+//     num2: 2
+// }
+// resultA = add(numbers.num1, numbers.num2); // 3
+// resultB = add(resultA, 3) // 6
+// resultC = add(resultB, 4); // 10
+
+// console.log(`total = ${resultC}`);
+
+// console.log(resultA, resultB, resultC)
+
+const addAsync = (num1, num2) => {
+    // use ES6 Fetch API which a promise
+    // what is .json()? developer mozilla
+    return fetch(`http://www.example.com?num1=${num1}&num2=${num2}`)
+        .then(result => result.json());
+}
+
+addAsync(1,2)
+    .then(success => {
+        resultA = success;
+        return resultA
+    })
+    .then(success => {
+        addAsync(success, 3)
+    })
+    .then(success => {
+        resultB = success
+        return resultB;
+    })
+    .then(success => {
+        addAsync(success, 4)
+    })
+    .then(success => {
+        resultC = success
+        return resultC
+    })
+    .then(success => {
+        console.log(`total: ${success}`);
+        console.log(resultA, resultB, resultC)
+    })
+    .catch(err => {
+        console.log('Something went wrong!', err)
+    })
