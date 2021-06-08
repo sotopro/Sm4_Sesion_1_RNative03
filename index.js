@@ -70,6 +70,7 @@ const showOff = async (phone) => {
     // let message = `Hey friend, I have a new ${phone.color} ${phone.brand} phone`;
     // return Promise.resolve(message);
 };
+
 const askMon = async () => {
     try {
         let phone = await willGetNewPhone;
@@ -140,36 +141,128 @@ let resultA, resultB, resultC;
 
 // console.log(resultA, resultB, resultC)
 
-const addAsync = (num1, num2) => {
-    // use ES6 Fetch API which a promise
-    // what is .json()? developer mozilla
-    return fetch(`http://www.example.com?num1=${num1}&num2=${num2}`)
-        .then(result => result.json());
-}
+// const addAsync = (num1, num2) => {
+//     // use ES6 Fetch API which a promise
+//     // what is .json()? developer mozilla
+//     return fetch(`http://www.example.com?num1=${num1}&num2=${num2}`)
+//         .then(result => result.json());
+// }
 
-addAsync(1,2)
-    .then(success => {
-        resultA = success;
-        return resultA
+// addAsync(1,2)
+//     .then(success => {
+//         resultA = success;
+//         return resultA
+//     })
+//     .then(success => {
+//         addAsync(success, 3)
+//     })
+//     .then(success => {
+//         resultB = success
+//         return resultB;
+//     })
+//     .then(success => {
+//         addAsync(success, 4)
+//     })
+//     .then(success => {
+//         resultC = success
+//         return resultC
+//     })
+//     .then(success => {
+//         console.log(`total: ${success}`);
+//         console.log(resultA, resultB, resultC)
+//     })
+//     .catch(err => {
+//         console.log('Something went wrong!', err)
+//     })
+
+// function first () {
+//     console.log(1);
+// }
+// function second (callback) {
+//     setTimeout(() => {
+//         console.log(2);
+//         // execute the callback function
+//         callback();
+//     }, 0);
+// }
+// function third () {
+//     console.log(3);
+// }
+
+// first();
+// second(third);
+// function fn () {
+//     console.log('just a function')
+// }
+
+// function higherOrderFunction (callback) {
+//     callback();
+// }
+
+// higherOrderFunction(fn)
+
+// function pymaridOfDoom () {
+//     setTimeout(() => {
+//         console.log(1)
+//         setTimeout(() => {
+//             console.log(2)
+//             setTimeout(() => {
+//                 console.log(3)
+//             }, 500)
+//         }, 2000)
+//     }, 1000)
+// }
+
+// pymaridOfDoom();
+
+// function asynchronousRequest(args, callback) {
+//     if(!args) {
+//         return callback(new Error('Whoa! Something went wrong!'))
+//     } else {
+//         return setTimeout(() => {
+//             callback(null, {body: `${args} ${Math.random() * 10}`})
+//         }, 500)
+//     }
+// }
+
+// function callbackHell () {
+//     asynchronousRequest('First', function first(error, response) {
+//         if(error) {
+//             console.log(error)
+//             return
+//         }
+//         console.log(response.body);
+//         asynchronousRequest('Second', function second(error, response) {
+//             if(error) {
+//                 console.log(error)
+//                 return
+//             }
+//             console.log(response.body); 
+//             asynchronousRequest(null, function third(error, response) {
+//                 if(error) {
+//                     console.log(error)
+//                     return
+//                 }
+//                 console.log(response.body)
+//             })
+//         })
+//     })
+// }
+
+// callbackHell();
+
+// .then()
+// .catch()
+// .finally()
+
+fetch('https://api.github.com/users/sotopro')
+    .then((response) => {
+        console.log('response', response)
+        return response.json();
     })
-    .then(success => {
-        addAsync(success, 3)
+    .then((data) => {
+        console.log(data)
     })
-    .then(success => {
-        resultB = success
-        return resultB;
-    })
-    .then(success => {
-        addAsync(success, 4)
-    })
-    .then(success => {
-        resultC = success
-        return resultC
-    })
-    .then(success => {
-        console.log(`total: ${success}`);
-        console.log(resultA, resultB, resultC)
-    })
-    .catch(err => {
-        console.log('Something went wrong!', err)
+    .catch((error) => {
+        console.log(error)
     })
